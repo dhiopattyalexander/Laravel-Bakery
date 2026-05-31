@@ -3,6 +3,14 @@
 @section('judul', 'Riwayat Pesanan')
 
 @section('content')
+    @if($orders->contains(fn($o) => in_array(strtolower($o->status ?? 'pending'), ['pending', 'processing'], true)))
+        <script>
+            setTimeout(function() {
+                window.location.reload();
+            }, 10000);
+        </script>
+    @endif
+
 	<div class="mb-6">
 		<h2 class="text-2xl font-bold text-gray-900">Riwayat Pesanan</h2>
 	</div>
