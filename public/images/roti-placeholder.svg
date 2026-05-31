@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Gambar roti placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+    <linearGradient id="bread" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" rx="48" fill="url(#bg)"/>
+  <circle cx="290" cy="270" r="120" fill="#f59e0b" opacity="0.16"/>
+  <circle cx="430" cy="230" r="92" fill="#fbbf24" opacity="0.18"/>
+  <ellipse cx="410" cy="330" rx="200" ry="120" fill="url(#bread)"/>
+  <ellipse cx="320" cy="270" rx="115" ry="86" fill="#7c2d12" opacity="0.85"/>
+  <ellipse cx="475" cy="255" rx="96" ry="70" fill="#92400e" opacity="0.85"/>
+  <path d="M250 350c90-30 220-30 310 0" fill="none" stroke="#fff7ed" stroke-width="18" stroke-linecap="round" opacity="0.7"/>
+  <path d="M280 380c100-26 200-26 265 0" fill="none" stroke="#fff7ed" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+  <text x="400" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#92400e">Toko Roti</text>
+</svg>
