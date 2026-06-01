@@ -3,64 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar | L'Artisan Bakery</title>
+    <title>Daftar Akun — L'Artisan Bakery</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+        input:focus { outline: none; border-color: #d97706; box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
+    </style>
 </head>
-<body class="bg-amber-50 min-h-screen flex items-center justify-center font-[Poppins] py-10">
+<body class="min-h-screen" style="background: linear-gradient(135deg, #fef9f0 0%, #fef3e2 100%);">
 
-    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-amber-100">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-amber-800 font-[Playfair\ Display]">L'Artisan Bakery</h1>
-            <p class="text-gray-500 mt-2 text-sm">Buat akun baru untuk mulai memesan.</p>
-        </div>
+    <div class="flex min-h-screen">
+        {{-- Left Panel: Branding --}}
+        <div class="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 text-white" style="background: linear-gradient(135deg, #451a03 0%, #78350f 50%, #b45309 100%);">
+            <a href="{{ url('/') }}" class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 text-lg">🍞</div>
+                <div>
+                    <p class="font-playfair text-lg font-bold">L'Artisan Bakery</p>
+                    <p class="text-xs text-amber-300">Roti Segar Setiap Hari</p>
+                </div>
+            </a>
 
-        @if($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
-                <ul class="list-disc pl-5">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
+            <div>
+                <h1 class="font-playfair text-4xl font-bold leading-tight">
+                    Bergabung dengan<br>Kami! 🎉
+                </h1>
+                <p class="mt-4 text-base leading-7 text-amber-100">
+                    Buat akun gratis dan nikmati kemudahan memesan roti artisan pilihan langsung dari rumahmu.
+                </p>
+
+                <div class="mt-8 space-y-4">
+                    @foreach(['Akun gratis, tanpa biaya apapun', 'Lacak pesanan secara real-time', 'Simpan alamat favorit untuk checkout lebih cepat'] as $feat)
+                        <div class="flex items-center gap-3">
+                            <div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-400/30">
+                                <svg class="h-3.5 w-3.5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span class="text-sm text-amber-100">{{ $feat }}</span>
+                        </div>
                     @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form method="POST" action="/register" class="space-y-5">
-            @csrf
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" name="password" required minlength="8" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
-                <input type="password" name="password_confirmation" required minlength="8" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
-            </div>
-
-            <button type="submit" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded-lg transition-colors mt-2">
-                Daftar Akun
-            </button>
-        </form>
-        
-        <div class="mt-6 text-center text-sm text-gray-600">
-            Sudah punya akun? <a href="/login" class="text-amber-700 hover:text-amber-900 font-semibold underline">Masuk di sini</a>
+            <p class="text-xs text-amber-300/60">&copy; {{ date('Y') }} L'Artisan Bakery</p>
         </div>
-        
-        <div class="mt-4 text-center text-sm text-gray-600">
-            <a href="/orders" class="hover:text-amber-800 underline">← Kembali ke Katalog</a>
+
+        {{-- Right Panel: Form --}}
+        <div class="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
+            {{-- Mobile Logo --}}
+            <div class="mb-8 flex justify-center lg:hidden">
+                <a href="{{ url('/') }}" class="flex items-center gap-2.5">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl text-lg" style="background: linear-gradient(135deg, #d97706, #b45309);">🍞</div>
+                    <span class="font-playfair text-xl font-bold text-amber-900">L'Artisan Bakery</span>
+                </a>
+            </div>
+
+            <div class="mx-auto w-full max-w-sm">
+                <div class="mb-8">
+                    <h2 class="font-playfair text-3xl font-bold text-gray-900">Buat Akun Baru</h2>
+                    <p class="mt-2 text-sm text-gray-500">Sudah punya akun?
+                        <a href="/login" class="font-semibold text-amber-700 transition hover:text-amber-900">Masuk di sini</a>
+                    </p>
+                </div>
+
+                @if($errors->any())
+                    <div class="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="POST" action="/register" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label class="mb-1.5 block text-sm font-bold text-gray-700">Nama Lengkap</label>
+                        <input type="text" name="name" value="{{ old('name') }}" required
+                               placeholder="Nama kamu"
+                               class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm transition">
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-sm font-bold text-gray-700">Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}" required
+                               placeholder="email@contoh.com"
+                               class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm transition">
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-sm font-bold text-gray-700">Password</label>
+                        <input type="password" name="password" required minlength="8"
+                               placeholder="Min. 8 karakter"
+                               class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm transition">
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-sm font-bold text-gray-700">Konfirmasi Password</label>
+                        <input type="password" name="password_confirmation" required minlength="8"
+                               placeholder="Ulangi password"
+                               class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm transition">
+                    </div>
+
+                    <button type="submit"
+                            class="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition hover:opacity-90"
+                            style="background: linear-gradient(135deg, #d97706, #b45309);">
+                        Daftar Sekarang →
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <a href="{{ route('orders.index') }}" class="text-sm text-gray-500 transition hover:text-amber-800">
+                        ← Kembali ke Katalog
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
 </body>
 </html>

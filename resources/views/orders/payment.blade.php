@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('judul', 'Pembayaran QRIS')
+@section('judul', 'Pembayaran QRIS — Order #' . $order->id)
 @section('hideFloatingCart', '1')
 
 @section('content')
@@ -8,66 +8,110 @@
         $hasQrisImage = file_exists(public_path('images/qris-full.png'));
     @endphp
 
-    <div class="mx-auto max-w-2xl space-y-6">
-        <header class="rounded-3xl border border-amber-200 bg-gradient-to-r from-amber-700 via-amber-800 to-orange-700 p-6 text-white shadow">
-            <p class="text-xs uppercase tracking-[0.22em] text-amber-100">Pembayaran</p>
-            <h1 class="mt-2 text-3xl font-black">Bayar Pesanan #{{ $order->id }}</h1>
-            <p class="mt-2 text-sm text-amber-100">Scan QRIS, selesaikan pembayaran, lalu konfirmasi untuk lanjut ke invoice.</p>
+    <div class="mx-auto max-w-lg space-y-5">
+        {{-- Header --}}
+        <header class="overflow-hidden rounded-3xl p-6 text-white" style="background: linear-gradient(135deg, #451a03 0%, #78350f 50%, #b45309 100%);">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-amber-200">Langkah 2 dari 2</p>
+            <h1 class="mt-2 font-playfair text-2xl font-bold" style="font-family: 'Playfair Display', serif;">
+                Pembayaran QRIS
+            </h1>
+            <p class="mt-1.5 text-sm text-amber-100">Pesanan #{{ $order->id }} — scan QR lalu konfirmasi pembayaran.</p>
         </header>
 
+        {{-- Error Alert --}}
         @if(session('error'))
-            <div class="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div class="flex items-center gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 {{ session('error') }}
             </div>
         @endif
 
+        {{-- Paid Alert --}}
         @if($isPaid)
-            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                Pembayaran sudah berhasil. Status pesanan: <span class="font-semibold">Processing</span>.
+            <div class="flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                <svg class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Pembayaran sudah berhasil! Status: <strong>Processing</strong></span>
             </div>
         @endif
 
-        <section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div class="text-center">
-                <h2 class="text-lg font-bold text-gray-900">Metode: QRIS</h2>
-                <p class="mt-1 text-sm text-gray-500">Total pembayaran: Rp {{ number_format($order->total_amount, 0, ',', '.') }}</p>
+        {{-- Payment Card --}}
+        <section class="overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm">
+            {{-- Amount Header --}}
+            <div class="border-b border-amber-50 px-6 py-5 text-center" style="background: linear-gradient(135deg, #fef9f0, #fef3e2);">
+                <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Total Pembayaran</p>
+                <p class="mt-2 font-playfair text-3xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">
+                    Rp {{ number_format($order->total_amount, 0, ',', '.') }}
+                </p>
+                <p class="mt-1 text-xs text-gray-500">Metode: QRIS</p>
             </div>
 
-            <div class="mt-6 flex justify-center">
-                @if($hasQrisImage)
-                    <div class="h-[340px] w-[340px] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-inner">
-                        <img
-                            src="{{ asset('images/qris-full.png') }}"
-                            alt="QRIS pembayaran"
-                            class="max-w-none"
-                            style="width: 768px; height: 1118px; transform: translate(-108px, -300px);"
-                        >
+            <div class="p-6 space-y-5">
+                {{-- QR Code --}}
+                <div class="flex justify-center">
+                    @if($hasQrisImage)
+                        <div class="overflow-hidden rounded-2xl border-4 border-amber-100 shadow-inner" style="height: 280px; width: 280px;">
+                            <img
+                                src="{{ asset('images/qris-full.png') }}"
+                                alt="QRIS pembayaran"
+                                class="max-w-none"
+                                style="width: 768px; height: 1118px; transform: translate(-108px, -300px);"
+                            >
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50 p-8 text-center" style="width: 280px; height: 280px;">
+                            <span class="text-5xl mb-3">📱</span>
+                            <p class="text-sm font-semibold text-amber-800">QR Code Belum Tersedia</p>
+                            <p class="mt-2 text-xs text-gray-500">
+                                Simpan file gambar ke<br>
+                                <code class="font-bold text-gray-700">public/images/qris-full.png</code>
+                            </p>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Countdown --}}
+                <div class="overflow-hidden rounded-2xl" style="background: linear-gradient(135deg, #451a03, #b45309);">
+                    <div class="p-4 text-center">
+                        <p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-200">⏱ Batas Waktu Pembayaran</p>
+                        <p id="payment-countdown" data-seconds="{{ $secondsLeft }}" class="mt-2 font-playfair text-4xl font-bold text-white" style="font-family: 'Playfair Display', serif;">
+                            10:00
+                        </p>
+                        <p class="mt-1 text-xs text-amber-200">Selesaikan sebelum waktu habis</p>
                     </div>
-                @else
-                    <div class="w-full rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-600">
-                        File QRIS belum ada. Simpan gambar full ke
-                        <span class="font-semibold text-gray-900">public/images/qris-full.png</span>
-                        agar area QR otomatis di-crop dan tampil di sini.
-                    </div>
-                @endif
+                </div>
+
+                {{-- Instructions --}}
+                <div class="space-y-2">
+                    @foreach(['Buka aplikasi pembayaran (GoPay, OVO, Dana, dll)', 'Pilih menu "Scan QR" atau "Bayar"', 'Scan kode QR di atas', 'Konfirmasi nominal dan selesaikan pembayaran', 'Klik tombol konfirmasi di bawah'] as $i => $step)
+                        <div class="flex items-start gap-3">
+                            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style="background: linear-gradient(135deg, #d97706, #b45309);">{{ $i + 1 }}</span>
+                            <p class="text-sm text-gray-600 leading-6">{{ $step }}</p>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- Confirm Button --}}
+                <form method="POST" action="{{ route('checkout.payment.confirm', $order) }}">
+                    @csrf
+                    <button id="confirm-payment-btn" type="submit"
+                            {{ ($isExpired || $isPaid) ? 'disabled' : '' }}
+                            class="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                            style="{{ ($isExpired || $isPaid) ? 'background: #9ca3af;' : 'background: linear-gradient(135deg, #059669, #047857);' }}">
+                        @if($isPaid)
+                            ✓ Sudah Berhasil Dibayar
+                        @elseif($isExpired)
+                            ✗ Pembayaran Kedaluwarsa
+                        @else
+                            ✓ Konfirmasi Sudah Bayar
+                        @endif
+                    </button>
+                </form>
+
+                <a href="{{ route('orders.show', $order) }}"
+                   class="flex w-full items-center justify-center rounded-2xl border border-gray-200 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50">
+                    Lihat Invoice Saja
+                </a>
             </div>
-
-            <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-center">
-                <p class="text-xs uppercase tracking-[0.18em] text-amber-700">Batas Waktu Pembayaran</p>
-                <p id="payment-countdown" data-seconds="{{ $secondsLeft }}" class="mt-2 text-3xl font-black text-amber-900">10:00</p>
-                <p class="mt-1 text-xs text-amber-700">Selesaikan pembayaran sebelum waktu habis.</p>
-            </div>
-
-            <form method="POST" action="{{ route('checkout.payment.confirm', $order) }}" class="mt-6">
-                @csrf
-                <button id="confirm-payment-btn" type="submit" {{ ($isExpired || $isPaid) ? 'disabled' : '' }} class="inline-flex w-full items-center justify-center rounded-xl bg-emerald-700 px-4 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-gray-400">
-                    {{ $isPaid ? 'Sudah Berhasil Dibayar' : ($isExpired ? 'Pembayaran Kedaluwarsa' : 'Konfirmasi Pembayaran') }}
-                </button>
-            </form>
-
-            <a href="{{ route('orders.show', $order) }}" class="mt-3 inline-flex w-full items-center justify-center rounded-xl border border-gray-300 px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50">
-                Lihat Invoice Tanpa Konfirmasi
-            </a>
         </section>
     </div>
 
@@ -80,27 +124,26 @@
             let secondsLeft = Math.max(0, Math.floor(Number(el.dataset.seconds || 0)));
 
             const render = () => {
-                const safeSeconds = Math.max(0, Math.floor(secondsLeft));
-                const minutes = String(Math.floor(safeSeconds / 60)).padStart(2, '0');
-                const seconds = String(safeSeconds % 60).padStart(2, '0');
-                el.textContent = `${minutes}:${seconds}`;
+                const s = Math.max(0, Math.floor(secondsLeft));
+                const m = String(Math.floor(s / 60)).padStart(2, '0');
+                const sec = String(s % 60).padStart(2, '0');
+                el.textContent = `${m}:${sec}`;
+                // Change color when urgent
+                if (s < 60) el.style.color = '#fca5a5';
             };
 
             render();
-
             const timer = setInterval(() => {
                 secondsLeft -= 1;
                 render();
-
                 if (secondsLeft <= 0) {
                     clearInterval(timer);
                     if (confirmBtn) {
                         confirmBtn.disabled = true;
-                        confirmBtn.textContent = 'Pembayaran Kedaluwarsa';
+                        confirmBtn.textContent = '✗ Pembayaran Kedaluwarsa';
+                        confirmBtn.style.background = '#9ca3af';
                     }
-
-                    // Reload sekali agar server bisa menandai order pending menjadi cancelled.
-                    window.setTimeout(() => window.location.reload(), 1200);
+                    setTimeout(() => window.location.reload(), 1200);
                 }
             }, 1000);
         })();
