@@ -69,11 +69,21 @@
                 <article class="group flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                     {{-- Product Image --}}
                     <a href="{{ route('breads.show', $bread->id) }}" class="relative block overflow-hidden bg-amber-50" style="height: 150px;">
-                        <img
-                            src="{{ $bread->image_path ? asset('storage/' . $bread->image_path) : asset('images/roti-placeholder.svg') }}"
-                            alt="{{ $bread->name }}"
-                            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                        >
+                            @php
+                                $imgPath = $bread->image_path ?? '';
+                                if (\Illuminate\Support\Str::startsWith($imgPath, 'images/')) {
+                                    $src = asset($imgPath);
+                                } elseif (!empty($imgPath)) {
+                                    $src = asset('storage/' . $imgPath);
+                                } else {
+                                    $src = asset('images/roti-placeholder.svg');
+                                }
+                            @endphp
+                            <img
+                                src="{{ $src }}"
+                                alt="{{ $bread->name }}"
+                                class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            >
                         @if($bread->stock <= 0)
                             <div class="absolute inset-0 flex items-center justify-center bg-black/50">
                                 <span class="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">Stok Habis</span>
