@@ -3,6 +3,10 @@
 -- DESKRIPSI: Struktur lengkap (Tabel, View, Trigger, Prosedur)
 -- ==========================================================
 
+CREATE USER IF NOT EXISTS 'alexander'@'localhost' IDENTIFIED BY 'dhio14827';
+GRANT ALL PRIVILEGES ON db_toko_roti.* TO 'alexander'@'localhost';
+FLUSH PRIVILEGES;
+
 SET FOREIGN_KEY_CHECKS=0;
 DROP DATABASE IF EXISTS db_toko_roti;
 CREATE DATABASE db_toko_roti CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -177,6 +181,16 @@ CREATE TABLE IF NOT EXISTS `order_checkout_meta` (
   FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+-- >>> ADDED: admin_access_logs table to record panel admin access
+CREATE TABLE IF NOT EXISTS `admin_access_logs` (
+  `id` bigint unsigned AUTO_INCREMENT PRIMARY KEY,
+  `user_id` bigint unsigned NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `user_agent` text NOT NULL,
+  `accessed_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 -- ==========================================
 -- 3. INDEXES
 -- ==========================================
@@ -241,6 +255,21 @@ BEGIN
     UPDATE orders SET total_amount = total_amount - OLD.subtotal WHERE id = OLD.order_id;
 END //
 
+-- >>> ADDED: prevent updates and deletes on admin_access_logs
+CREATE TRIGGER tr_prevent_admin_log_update
+BEFORE UPDATE ON admin_access_logs
+FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Session log tidak dapat diubah.';
+END //
+
+CREATE TRIGGER tr_prevent_admin_log_delete
+BEFORE DELETE ON admin_access_logs
+FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Session log tidak dapat dihapus.';
+END //
+
 DELIMITER ;
 
 -- ==========================================
@@ -299,10 +328,6 @@ INSERT INTO user_addresses (user_id, label, recipient_name, phone, address, is_d
 (2, 'Rumah', 'Alex Pelanggan', '08123456789', 'Jl. Depok Raya No. 12', 1),
 (2, 'Kantor', 'Alex Pelanggan', '08123456789', 'Jl. Margonda Raya No. 45', 0);
 
--- >>> REMOVED: kategori lama toko roti generik
--- INSERT INTO categories (name) VALUES 
--- ('Roti Tawar'), ('Roti Manis'), ('Pastry'), ('Donat'), ('Kue Kering');
-
 -- >>> ADDED: kategori baru sesuai referensi Holland Bakery
 INSERT INTO categories (name) VALUES 
 ('Roti'),
@@ -311,30 +336,6 @@ INSERT INTO categories (name) VALUES
 ('Pastry & Danish'),
 ('Cookies'),
 ('Traditional Snack');
-
--- >>> REMOVED: seed menu lama generik
--- INSERT INTO breads (category_id, name, description, price, stock) VALUES
--- (1, 'Roti Tawar Klasik', 'Roti tawar putih biasa', 15000, 50),
--- (1, 'Roti Tawar Gandum', 'Roti tawar gandum utuh sehat', 20000, 30),
--- (1, 'Roti Tawar Pandan', 'Roti tawar dengan aroma pandan asli', 18000, 40),
--- (1, 'Roti Tawar Kupas', 'Roti tawar tanpa kulit tepi', 17000, 35),
--- (2, 'Roti Sobek Coklat', 'Roti sobek isi coklat lumer', 25000, 20),
--- (2, 'Roti Sobek Keju', 'Roti sobek isi keju manis gurih', 26000, 25),
--- (2, 'Roti Kacang Merah', 'Roti manis dengan isian pasta kacang merah', 12000, 50),
--- (2, 'Roti Sosis Kater', 'Roti gulung sosis ayam pilihan', 15000, 40),
--- (2, 'Roti Abon Sapi', 'Roti dengan taburan abon sapi melimpah', 16000, 30),
--- (2, 'Roti Pisang Coklat', 'Roti isi perpaduan pisang manis dan coklat', 14000, 45),
--- (2, 'Roti Mocca', 'Roti bundar krim mocca', 12000, 30),
--- (3, 'Croissant Butter', 'Croissant berlapis mentega asli', 22000, 20),
--- (3, 'Danish Coklat', 'Pastry danish dengan filling coklat padat', 24000, 15),
--- (3, 'Puff Cheese', 'Puff pastry panjang dengan taburan keju', 20000, 25),
--- (3, 'Cinnamon Roll', 'Gulungan pastry kayu manis khas', 18000, 30),
--- (4, 'Donat Gula', 'Donat klasik empuk tabur gula halus', 8000, 100),
--- (4, 'Donat Coklat Meises', 'Donat glaze coklat dan taburan meises', 10000, 80),
--- (4, 'Donat Keju', 'Donat dengan krim dan parutan keju chedar', 12000, 60),
--- (4, 'Donat Bomboloni Vanilla', 'Bomboloni lumer isi vla vanilla', 15000, 40),
--- (5, 'Nastar Nanas', 'Kue kering nastar isi selai nanas (Per Toples)', 60000, 15),
--- (5, 'Kastengel Keju Edam', 'Kue kering kastengel keju edam premium (Per Toples)', 75000, 10);
 
 -- >>> ADDED: seed menu baru dari Holland Bakery
 INSERT INTO breads (category_id, name, description, price, stock) VALUES
