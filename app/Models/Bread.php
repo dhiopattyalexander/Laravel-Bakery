@@ -24,22 +24,33 @@ class Bread extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public static function getImageUrl(?string $imagePath): string
+    public static function getImageUrl(?string $imagePath, ?string $breadName = null): string
     {
-        if (empty($imagePath)) {
-            return asset('images/roti-placeholder.svg');
+        if (!empty($imagePath)) {
+            if (\Illuminate\Support\Str::startsWith($imagePath, 'images/')) {
+                return asset($imagePath);
+            }
+            if (\Illuminate\Support\Str::startsWith($imagePath, 'http://') || \Illuminate\Support\Str::startsWith($imagePath, 'https://')) {
+                return $imagePath;
+            }
+            return asset('storage/' . $imagePath);
         }
-        if (\Illuminate\Support\Str::startsWith($imagePath, 'images/')) {
-            return asset($imagePath);
+
+        if ($breadName) {
+            $slug = \Illuminate\Support\Str::slug($breadName);
+            foreach (['jpg', 'jpeg', 'png', 'svg'] as $ext) {
+                $relative = 'images/' . $slug . '.' . $ext;
+                if (file_exists(public_path($relative))) {
+                    return asset($relative);
+                }
+            }
         }
-        if (\Illuminate\Support\Str::startsWith($imagePath, 'http://') || \Illuminate\Support\Str::startsWith($imagePath, 'https://')) {
-            return $imagePath;
-        }
-        return asset('storage/' . $imagePath);
+
+        return asset('images/roti-placeholder.svg');
     }
 
     public function getImageUrlAttribute(): string
     {
-        return self::getImageUrl($this->image_path);
+        return self::getImageUrl($this->image_path, $this->name);
     }
 }
