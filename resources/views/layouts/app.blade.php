@@ -127,6 +127,7 @@
                     <ul class="space-y-2.5 text-sm text-amber-200/80">
                         <li><a href="{{ url('/') }}" class="transition hover:text-white">Beranda</a></li>
                         <li><a href="{{ route('orders.index') }}" class="transition hover:text-white">Katalog Roti</a></li>
+                        <li><a href="{{ route('tentang-kami') }}" class="transition hover:text-white">Tentang Kami</a></li>
                         @if(isset($navCategories))
                             @foreach($navCategories->take(4) as $cat)
                                 <li><a href="{{ route('orders.index') }}?kategori={{ urlencode($cat->name) }}" class="transition hover:text-white">{{ $cat->name }}</a></li>

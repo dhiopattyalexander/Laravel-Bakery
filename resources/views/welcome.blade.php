@@ -11,25 +11,25 @@
     <!-- Slides -->
     <div id="carousel-container" class="relative" style="min-height: 520px;">
 
-        {{-- Slide 1 --}}
+        {{-- Slide 1: Sourdough --}}
         <div class="carousel-slide active absolute inset-0 flex items-center" style="background: linear-gradient(135deg, #451a03 0%, #78350f 40%, #b45309 100%);">
-            <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1400&q=60'); background-size: cover; background-position: center;"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(69,26,3,0.85) 0%, rgba(180,83,9,0.5) 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: url('https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1400&q=80'); background-size: cover; background-position: center;"></div>
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(69,26,3,0.85) 0%, rgba(180,83,9,0.5) 100%);"></div>
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-200 backdrop-blur-sm">
                         🍞 Roti Segar Setiap Hari
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
-                        Hangat, Lembut,<br>& <span class="text-amber-300">Penuh Cinta</span>
+                        Kehangatan Roti Klasik<br>yang <span class="text-amber-300">Memikat Selera</span>
                     </h1>
                     <p class="mt-5 text-base leading-7 text-amber-100 sm:text-lg">
-                        Dipanggang segar dari bahan pilihan terbaik setiap pagi. Temukan rasa favorit untuk menemani harimu.
+                        Setiap potong dipanggang dengan resep turun-temurun dan bahan pilihan untuk kelembutan tiada tanding.
                     </p>
                     <div class="mt-8 flex flex-wrap gap-3">
                         <a href="{{ route('orders.index') }}" class="inline-flex items-center gap-2 rounded-2xl bg-amber-400 px-6 py-3 text-sm font-bold text-amber-900 shadow-lg transition hover:bg-amber-300 hover:shadow-xl">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                            Pesan Sekarang
+                            Pesan Roti Segar
                         </a>
                         <a href="#produk-terlaris" class="inline-flex items-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20">
                             Lihat Produk
@@ -39,48 +39,48 @@
             </div>
         </div>
 
-        {{-- Slide 2 --}}
+        {{-- Slide 2: Cakes --}}
         <div class="carousel-slide absolute inset-0 flex items-center" style="background: linear-gradient(135deg, #1c1917 0%, #44403c 40%, #78716c 100%);">
-            <div class="absolute inset-0 opacity-25" style="background-image: url('https://images.unsplash.com/photo-1486887396153-fa416526c108?auto=format&fit=crop&w=1400&q=60'); background-size: cover; background-position: center;"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(28,25,23,0.88) 0%, rgba(120,113,108,0.45) 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none opacity-25" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1400&q=80'); background-size: cover; background-position: center;"></div>
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(28,25,23,0.88) 0%, rgba(120,113,108,0.45) 100%);"></div>
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-amber-500/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-300 backdrop-blur-sm">
-                        ✨ Menu Spesial
+                        🎂 Rayakan Momen Spesial
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
-                        Koleksi <span class="text-amber-400">Artisan</span><br>Pilihan Terbaik
+                        Cakes Istimewa<br>untuk <span class="text-amber-400">Hari Bahagia</span>
                     </h1>
                     <p class="mt-5 text-base leading-7 text-stone-300 sm:text-lg">
-                        Dari roti tawar klasik hingga brioche premium — setiap produk kami dibuat dengan standar kualitas tertinggi.
+                        Koleksi Black Forest dan Lemon Taart premium buatan master patisserie kami siap mempermanis hari spesial Anda.
                     </p>
                     <div class="mt-8 flex flex-wrap gap-3">
-                        <a href="{{ route('orders.index') }}" class="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-amber-400">
-                            Jelajahi Koleksi
+                        <a href="{{ route('orders.index') }}?kategori=Cakes" class="inline-flex items-center gap-2 rounded-2xl bg-amber-500 px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-amber-400">
+                            Jelajahi Cakes
                         </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{-- Slide 3 --}}
+        {{-- Slide 3: Pastry --}}
         <div class="carousel-slide absolute inset-0 flex items-center" style="background: linear-gradient(135deg, #14532d 0%, #166534 40%, #15803d 100%);">
-            <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1600611012278-a2ed5c0e5547?auto=format&fit=crop&w=1400&q=60'); background-size: cover; background-position: center;"></div>
-            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(20,83,45,0.9) 0%, rgba(21,128,61,0.5) 100%);"></div>
+            <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: url('https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=1400&q=80'); background-size: cover; background-position: center;"></div>
+            <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(135deg, rgba(20,83,45,0.9) 0%, rgba(21,128,61,0.5) 100%);"></div>
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-green-200 backdrop-blur-sm">
-                        🚀 Pesan Mudah
+                        🥐 Artisan Pastry
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
-                        Pesan Online,<br>Nikmati di <span class="text-green-300">Rumah</span>
+                        Flaky & Crispy<br><span class="text-green-300">Artisan Pastry</span>
                     </h1>
                     <p class="mt-5 text-base leading-7 text-green-100 sm:text-lg">
-                        Pilih roti, tambahkan ke keranjang, lakukan pembayaran QRIS — dan roti favoritmu siap diantar!
+                        Rasakan renyahnya Cromboloni lumer dan Croissant mentega premium, teman terbaik kopi pagi Anda.
                     </p>
                     <div class="mt-8 flex flex-wrap gap-3">
-                        <a href="{{ route('orders.index') }}" class="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-bold text-green-800 shadow-lg transition hover:bg-green-50">
-                            Mulai Pesan
+                        <a href="{{ route('orders.index') }}?kategori=Pastry%20%26%20Danish" class="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-bold text-green-800 shadow-lg transition hover:bg-green-50">
+                            Pesan Pastry
                         </a>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
             <h2 class="mt-3 font-playfair text-3xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">
                 Pilihan Paling Populer
             </h2>
-            <p class="mt-2 text-sm text-gray-500">Roti yang paling sering dipesan oleh pelanggan setia kami.</p>
+            <p class="mt-2 text-sm text-gray-500">Satu produk terlaris & favorit dari setiap kategori roti kami.</p>
         </div>
         <a href="{{ route('orders.index') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 transition hover:text-amber-900 hover:underline">
             Lihat semua produk
@@ -155,33 +155,47 @@
         </a>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 sm:gap-5 xl:grid-cols-4">
-        @forelse($produkTerlaris as $bread)
-            <article class="group flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                <a href="{{ route('breads.show', $bread->id) }}" class="block overflow-hidden bg-amber-50" style="height: 160px;">
-                    <img src="{{ $bread->image_path ? asset('storage/' . $bread->image_path) : 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=70' }}"
-                         alt="{{ $bread->name }}"
-                         class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
-                </a>
-                <div class="flex flex-1 flex-col p-3 sm:p-4">
-                    <p class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-amber-600">{{ $bread->category->name ?? 'Lainnya' }}</p>
-                    <a href="{{ route('breads.show', $bread->id) }}" class="mt-1.5 block text-sm sm:text-base font-bold text-gray-900 transition hover:text-amber-700 line-clamp-1">
-                        {{ $bread->name }}
+    <!-- Horizontal Scrollable Container -->
+    <div class="relative">
+        <!-- Navigation Buttons -->
+        <button id="slide-left" aria-label="Geser Kiri"
+                class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-white text-amber-950 border border-amber-100 shadow-lg transition hover:bg-amber-50 hover:scale-105 active:scale-95">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        
+        <button id="slide-right" aria-label="Geser Kanan"
+                class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-white text-amber-950 border border-amber-100 shadow-lg transition hover:bg-amber-50 hover:scale-105 active:scale-95">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <div id="popular-slider" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-2 scrollbar-none" style="-ms-overflow-style: none; scrollbar-width: none;">
+            @forelse($produkTerlaris as $bread)
+                <article class="w-[280px] sm:w-[310px] shrink-0 snap-start group flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                    <a href="{{ route('breads.show', $bread->id) }}" class="block overflow-hidden bg-amber-50" style="height: 180px;">
+                        <img src="{{ $bread->image_url }}"
+                             alt="{{ $bread->name }}"
+                             class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
                     </a>
-                    <p class="mt-1 text-xs text-gray-400 line-clamp-2 leading-5">{{ $bread->description ?? 'Roti unggulan pilihan pelanggan.' }}</p>
-                    <div class="mt-auto pt-3 flex items-center justify-between gap-2">
-                        <span class="text-sm sm:text-base font-black text-amber-700">Rp {{ number_format($bread->price, 0, ',', '.') }}</span>
-                        <a href="{{ route('breads.show', $bread->id) }}" class="inline-flex items-center justify-center rounded-xl px-3 py-1.5 text-xs font-bold text-white transition hover:opacity-90" style="background: linear-gradient(135deg, #d97706, #b45309);">
-                            Pesan
+                    <div class="flex flex-1 flex-col p-4 sm:p-5">
+                        <p class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-amber-600">{{ $bread->category->name ?? 'Lainnya' }}</p>
+                        <a href="{{ route('breads.show', $bread->id) }}" class="mt-2 block text-base sm:text-lg font-bold text-gray-900 transition hover:text-amber-700 line-clamp-1">
+                            {{ $bread->name }}
                         </a>
+                        <p class="mt-1.5 text-xs text-gray-500 line-clamp-2 leading-5">{{ $bread->description ?? 'Roti unggulan pilihan pelanggan.' }}</p>
+                        <div class="mt-auto pt-4 flex items-center justify-between gap-2">
+                            <span class="text-base sm:text-lg font-black text-amber-700">Rp {{ number_format($bread->price, 0, ',', '.') }}</span>
+                            <a href="{{ route('breads.show', $bread->id) }}" class="inline-flex items-center justify-center rounded-xl px-4 py-2 text-xs font-bold text-white transition hover:opacity-90" style="background: linear-gradient(135deg, #d97706, #b45309);">
+                                Pesan
+                            </a>
+                        </div>
                     </div>
+                </article>
+            @empty
+                <div class="w-full rounded-2xl border border-dashed border-amber-200 bg-amber-50 p-8 text-center">
+                    <p class="text-sm text-amber-700">Belum ada produk terlaris yang tercatat.</p>
                 </div>
-            </article>
-        @empty
-            <div class="col-span-full rounded-2xl border border-dashed border-amber-200 bg-amber-50 p-8 text-center">
-                <p class="text-sm text-amber-700">Belum ada produk terlaris yang tercatat.</p>
-            </div>
-        @endforelse
+            @endforelse
+        </div>
     </div>
 </section>
 
@@ -205,7 +219,7 @@
         @forelse($menuBaru as $bread)
             <article class="group flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 <a href="{{ route('breads.show', $bread->id) }}" class="relative block overflow-hidden bg-amber-50" style="height: 160px;">
-                    <img src="{{ $bread->image_path ? asset('storage/' . $bread->image_path) : 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=70' }}"
+                    <img src="{{ $bread->image_url }}"
                          alt="{{ $bread->name }}"
                          class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
                     <span class="absolute top-2 left-2 rounded-full bg-emerald-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow">NEW</span>
@@ -327,6 +341,37 @@
         });
 
         autoPlay();
+    })();
+
+    // Popular Slider Logic
+    (function() {
+        const slider = document.getElementById('popular-slider');
+        const btnLeft = document.getElementById('slide-left');
+        const btnRight = document.getElementById('slide-right');
+        if (slider && btnLeft && btnRight) {
+            const scrollAmount = 330; // Card width + gap
+            btnLeft.addEventListener('click', () => {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+            btnRight.addEventListener('click', () => {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+            
+            // Toggle button visibility based on scroll position
+            function toggleButtons() {
+                const isAtStart = slider.scrollLeft <= 5;
+                const isAtEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5;
+                btnLeft.style.opacity = isAtStart ? '0.3' : '1';
+                btnLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
+                btnRight.style.opacity = isAtEnd ? '0.3' : '1';
+                btnRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+            }
+            
+            slider.addEventListener('scroll', toggleButtons);
+            window.addEventListener('resize', toggleButtons);
+            // Initial run
+            setTimeout(toggleButtons, 100);
+        }
     })();
 </script>
 @endpush

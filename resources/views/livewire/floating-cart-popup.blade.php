@@ -57,7 +57,7 @@
                     <div class="flex items-start gap-3">
                         <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-amber-100">
                             <img
-                                src="{{ ! empty($item['gambar']) ? asset('storage/' . $item['gambar']) : asset('images/roti-placeholder.svg') }}"
+                                src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null) }}"
                                 alt="{{ $item['nama'] }}"
                                 class="h-full w-full object-cover"
                             >

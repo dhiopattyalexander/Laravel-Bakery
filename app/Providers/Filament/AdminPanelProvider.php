@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->darkMode(false)
             ->brandLogo(fn () => view('filament.logo'))
+            ->homeUrl(url('/'))
             ->brandLogoHeight('2.5rem')
             ->font('Inter')
             ->colors([

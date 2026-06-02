@@ -25,7 +25,7 @@ class CheckoutKeranjangService
                 DB::statement('SET @new_order_id = 0');
                 DB::statement('CALL sp_checkout_order_bulk(?, ?, @new_order_id)', [
                     $userId,
-                    $totalHarga,
+                    0,
                 ]);
 
                 $orderId = (int) (DB::selectOne('SELECT @new_order_id AS new_order_id')->new_order_id ?? 0);

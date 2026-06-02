@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Tentang Kami -->
-                <a href="{{ url('/#tentang-kami') }}" class="rounded-xl px-3.5 py-2 text-sm font-semibold text-gray-700 transition hover:bg-amber-50 hover:text-amber-800">
+                <a href="{{ route('tentang-kami') }}" class="rounded-xl px-3.5 py-2 text-sm font-semibold text-gray-700 transition hover:bg-amber-50 hover:text-amber-800">
                     Tentang Kami
                 </a>
             </div>
@@ -72,7 +72,7 @@
                             <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                         </summary>
 
-                        <div class="absolute right-0 top-full mt-3 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl z-50">
+                            <div class="profile-menu-panel absolute right-0 top-full mt-3 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl z-50">
                             <div class="border-b border-gray-100 px-5 py-4" style="background: linear-gradient(135deg, #fef9f0, #fef3e2);">
                                 <div class="flex items-center gap-3">
                                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full text-base font-black text-white" style="background: linear-gradient(135deg, #d97706, #b45309);">
@@ -153,7 +153,7 @@
                     @endif
                 </div>
 
-                <a href="{{ url('/#tentang-kami') }}" class="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-amber-50 hover:text-amber-800">
+                <a href="{{ route('tentang-kami') }}" class="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gray-700 transition hover:bg-amber-50 hover:text-amber-800">
                     <svg class="h-4 w-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     Tentang Kami
                 </a>

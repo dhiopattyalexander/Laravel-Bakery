@@ -103,6 +103,7 @@ class OrdersTable
                 EditAction::make(),
             ])
             ->toolbarActions([])
+            ->defaultSort('id', 'desc')
             ->poll('3s');
     }
 }

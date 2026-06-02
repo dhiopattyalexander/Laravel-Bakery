@@ -9,15 +9,23 @@ use App\Http\Controllers\AuthController;
 
 // 1. Landing Page
 Route::get('/', function () {
-    $produkTerlaris = Bread::query()
-        ->select('breads.*', DB::raw('COALESCE(sales.total_terjual, 0) as total_terjual'))
-        ->leftJoin(DB::raw('(SELECT bread_id, SUM(quantity) as total_terjual FROM order_items GROUP BY bread_id) as sales'), 'breads.id', '=', 'sales.bread_id')
-        ->with('category')
-        ->where('breads.stock', '>', 0)
-        ->orderByDesc('total_terjual')
-        ->orderByDesc('breads.id')
-        ->limit(4)
-        ->get();
+    $categories = \App\Models\Category::all();
+    $produkTerlaris = collect();
+    foreach ($categories as $category) {
+        $bread = Bread::query()
+            ->select('breads.*', DB::raw('COALESCE(sales.total_terjual, 0) as total_terjual'))
+            ->leftJoin(DB::raw('(SELECT bread_id, SUM(quantity) as total_terjual FROM order_items GROUP BY bread_id) as sales'), 'breads.id', '=', 'sales.bread_id')
+            ->with('category')
+            ->where('breads.category_id', $category->id)
+            ->where('breads.stock', '>', 0)
+            ->orderByDesc('total_terjual')
+            ->orderByDesc('breads.id')
+            ->first();
+
+        if ($bread) {
+            $produkTerlaris->push($bread);
+        }
+    }
 
     $menuBaru = Bread::query()
         ->with('category')
@@ -28,6 +36,9 @@ Route::get('/', function () {
 
     return view('welcome', compact('produkTerlaris', 'menuBaru'));
 })->name('beranda');
+Route::get('/tentang-kami', function () {
+    return view('tentang-kami');
+})->name('tentang-kami');
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/roti/{id}', [\App\Http\Controllers\BreadController::class, 'show'])->name('breads.show');
 Route::middleware('auth')->group(function () {

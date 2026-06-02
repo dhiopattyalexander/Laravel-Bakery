@@ -32,13 +32,16 @@ class Order extends Model
             $oldStatus = $order->getOriginal('status');
             $newStatus = $order->status;
 
-            if ($oldStatus !== 'Completed' && $newStatus === 'Completed') {
+            $wasActive = in_array($oldStatus, ['Processing', 'Completed'], true);
+            $isActive = in_array($newStatus, ['Processing', 'Completed'], true);
+
+            if (! $wasActive && $isActive) {
                 foreach ($order->items as $item) {
                     if ($item->bread) {
                         $item->bread->decrement('stock', $item->quantity);
                     }
                 }
-            } elseif ($oldStatus === 'Completed' && $newStatus !== 'Completed') {
+            } elseif ($wasActive && ! $isActive) {
                 foreach ($order->items as $item) {
                     if ($item->bread) {
                         $item->bread->increment('stock', $item->quantity);
@@ -48,7 +51,8 @@ class Order extends Model
         });
 
         static::deleted(function ($order) {
-            if ($order->status === 'Completed') {
+            $wasActive = in_array($order->status, ['Processing', 'Completed'], true);
+            if ($wasActive) {
                 foreach ($order->items as $item) {
                     if ($item->bread) {
                         $item->bread->increment('stock', $item->quantity);

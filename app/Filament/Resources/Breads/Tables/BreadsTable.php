@@ -20,12 +20,14 @@ class BreadsTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('stock')
                     ->numeric()
                     ->sortable(),
             ])
+            ->defaultSort('id', 'desc')
+            ->poll('3s')
             ->filters([
                 //
             ])

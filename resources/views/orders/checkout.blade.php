@@ -4,6 +4,20 @@
 @section('hideFloatingCart', '1')
 
 @section('content')
+    {{-- Breadcrumb & Back button --}}
+    <div class="mb-6 flex items-center gap-3">
+        <button onclick="history.back()" class="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-200 bg-white text-amber-800 shadow-sm transition hover:bg-amber-50">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <nav class="flex items-center gap-2 text-xs font-semibold text-gray-400">
+            <a href="{{ url('/') }}" class="transition hover:text-amber-700">Beranda</a>
+            <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <a href="{{ route('orders.index') }}" class="transition hover:text-amber-700">Katalog</a>
+            <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-800">Checkout</span>
+        </nav>
+    </div>
+
 <div class="grid gap-8 lg:grid-cols-[1.4fr_0.6fr]">
 
     {{-- LEFT: Cart Review --}}
@@ -50,7 +64,7 @@
                             {{-- Product Image --}}
                             <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-amber-50">
                                 <img
-                                    src="{{ ! empty($item['gambar']) ? asset('storage/' . $item['gambar']) : asset('images/roti-placeholder.svg') }}"
+                                    src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null) }}"
                                     alt="{{ $item['nama'] }}"
                                     class="h-full w-full object-cover"
                                 >

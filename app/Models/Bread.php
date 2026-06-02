@@ -23,4 +23,23 @@ class Bread extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public static function getImageUrl(?string $imagePath): string
+    {
+        if (empty($imagePath)) {
+            return asset('images/roti-placeholder.svg');
+        }
+        if (\Illuminate\Support\Str::startsWith($imagePath, 'images/')) {
+            return asset($imagePath);
+        }
+        if (\Illuminate\Support\Str::startsWith($imagePath, 'http://') || \Illuminate\Support\Str::startsWith($imagePath, 'https://')) {
+            return $imagePath;
+        }
+        return asset('storage/' . $imagePath);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return self::getImageUrl($this->image_path);
+    }
 }

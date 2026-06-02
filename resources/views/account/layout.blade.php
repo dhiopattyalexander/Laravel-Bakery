@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- Breadcrumb & Back button --}}
+    <div class="mb-6 flex items-center gap-3">
+        <button onclick="history.back()" class="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-200 bg-white text-amber-800 shadow-sm transition hover:bg-amber-50">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <nav class="flex items-center gap-2 text-xs font-semibold text-gray-400">
+            <a href="{{ url('/') }}" class="transition hover:text-amber-700">Beranda</a>
+            <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            <span class="text-gray-600">Akun Saya</span>
+            @if(request()->routeIs('account.profile'))
+                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-gray-800">Edit Profil</span>
+            @elseif(request()->routeIs('account.address'))
+                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-gray-800">Alamat</span>
+            @elseif(request()->routeIs('account.orders'))
+                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-gray-800">Riwayat Pesanan</span>
+            @endif
+        </nav>
+    </div>
+
     <div class="grid gap-6 lg:grid-cols-[260px_1fr]">
         {{-- Sidebar --}}
         <aside class="lg:sticky lg:top-24 lg:h-fit">
