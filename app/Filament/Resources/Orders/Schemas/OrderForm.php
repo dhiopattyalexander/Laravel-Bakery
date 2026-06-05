@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Orders\Schemas;
 
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Carbon;
 
@@ -34,22 +35,15 @@ class OrderForm
                     ])
                     ->default('Pending'),
 
-                Placeholder::make('payment_info')
-                    ->label('Info Pembayaran')
-                    ->content(static function ($record): string {
-                        if (! $record?->checkoutMeta) {
-                            return 'Belum ada metadata pembayaran.';
-                        }
-
-                        $method = strtoupper((string) ($record->checkoutMeta->payment_method ?? '-'));
-                        $paidAtRaw = $record->checkoutMeta->paid_at;
-                        $expiredAtRaw = $record->checkoutMeta->expired_at;
-
-                        $paidAt = $paidAtRaw ? Carbon::parse($paidAtRaw)->format('d M Y, H:i') : '-';
-                        $expiredAt = $expiredAtRaw ? Carbon::parse($expiredAtRaw)->format('d M Y, H:i') : '-';
-
-                        return "Metode: {$method} | Paid At: {$paidAt} | Expired At: {$expiredAt}";
-                    }),
+                \Filament\Schemas\Components\Fieldset::make('Detail Checkout')
+                    ->relationship('checkoutMeta')
+                    ->schema([
+                        TextInput::make('delivery_method')->disabled(),
+                        TextInput::make('payment_method')->disabled(),
+                        TextInput::make('pickup_time')->disabled(),
+                        \Filament\Forms\Components\Textarea::make('shipping_address')->disabled()->columnSpanFull(),
+                        \Filament\Forms\Components\Textarea::make('order_notes')->disabled()->columnSpanFull(),
+                    ])->columns(3),
             ]);
     }
 }

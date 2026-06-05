@@ -3,8 +3,25 @@
 -- DESKRIPSI: Struktur lengkap (Tabel, View, Trigger, Prosedur)
 -- ==========================================================
 
+-- ==========================================================
+-- 7. USER PRIVILEGE
+-- Diimplementasikan pada: Level server database (MySQL/MariaDB).
+-- Bagian: Hak akses akun pengguna untuk login ke database.
+-- Kegunaan: Mengamankan database dengan memberikan hak akses (Role-Based Access Control pada level DB) 
+--           yang spesifik sesuai tugas (Admin DB vs Kasir).
+-- ==========================================================
 CREATE USER IF NOT EXISTS 'alexander'@'localhost' IDENTIFIED BY 'dhio14827';
 GRANT ALL PRIVILEGES ON db_toko_roti.* TO 'alexander'@'localhost';
+
+-- Administrator Database (Akses Penuh)
+CREATE USER IF NOT EXISTS 'admin_db'@'localhost' IDENTIFIED BY 'pass123';
+GRANT ALL PRIVILEGES ON db_toko_roti.* TO 'admin_db'@'localhost';
+
+-- Kasir (Akses Terbatas)
+CREATE USER IF NOT EXISTS 'kasir_db'@'localhost' IDENTIFIED BY 'pass456';
+GRANT SELECT, INSERT, UPDATE ON db_toko_roti.orders TO 'kasir_db'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON db_toko_roti.order_items TO 'kasir_db'@'localhost';
+
 FLUSH PRIVILEGES;
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,16 +104,64 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 ) ENGINE=InnoDB;
 
 -- ==========================================
--- 2. TABEL BISNIS UTAMA
+-- 2. TABEL BISNIS UTAMA & RELASI (Tabel & Relasi)
+-- Diimplementasikan pada: Seluruh fitur utama aplikasi (seperti manajemen user, produk, pesanan).
+-- Bagian: Struktur penyimpanan data permanen.
+-- Kegunaan: Menyimpan data entitas bisnis (Users, Breads, Orders, dll) dengan relasi Foreign Key untuk menjaga integritas data (Referential Integrity).
 -- ==========================================
 CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('Admin', 'User') DEFAULT 'User',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- >>> ADDED: Spatie Permission Tables (RBAC)
+-- Menggantikan enum role. Digunakan untuk manajemen hak akses dinamis.
+CREATE TABLE permissions (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    guard_name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    UNIQUE KEY permissions_name_guard_name_unique (name, guard_name)
+) ENGINE=InnoDB;
+
+CREATE TABLE roles (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    guard_name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    UNIQUE KEY roles_name_guard_name_unique (name, guard_name)
+) ENGINE=InnoDB;
+
+CREATE TABLE model_has_permissions (
+    permission_id BIGINT UNSIGNED NOT NULL,
+    model_type VARCHAR(255) NOT NULL,
+    model_id BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (permission_id, model_id, model_type),
+    KEY model_has_permissions_model_id_model_type_index (model_id, model_type),
+    FOREIGN KEY (permission_id) REFERENCES permissions (id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE model_has_roles (
+    role_id BIGINT UNSIGNED NOT NULL,
+    model_type VARCHAR(255) NOT NULL,
+    model_id BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (role_id, model_id, model_type),
+    KEY model_has_roles_model_id_model_type_index (model_id, model_type),
+    FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE role_has_permissions (
+    permission_id BIGINT UNSIGNED NOT NULL,
+    role_id BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (permission_id, role_id),
+    FOREIGN KEY (permission_id) REFERENCES permissions (id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE user_profiles (
@@ -192,14 +257,21 @@ CREATE TABLE IF NOT EXISTS `admin_access_logs` (
 ) ENGINE=InnoDB;
 
 -- ==========================================
--- 3. INDEXES
+-- 3. INDEXES (Index)
+-- Diimplementasikan pada: Tabel yang sering dijadikan kriteria pencarian atau filter (WHERE, JOIN).
+-- Bagian: Struktur data B-Tree di MySQL untuk kolom spesifik.
+-- Kegunaan: Mempercepat proses query (read) data dalam tabel besar tanpa harus full-table scan.
 -- ==========================================
 CREATE INDEX idx_bread_name ON breads(name);
 CREATE INDEX idx_order_status ON orders(status);
 CREATE INDEX idx_user_email ON users(email);
 
 -- ==========================================
--- 4. VIEWS
+-- 4. VIEWS (View)
+-- Diimplementasikan pada: Query laporan atau dashboard aplikasi.
+-- Bagian: Tabel virtual di database.
+-- Kegunaan: Menyederhanakan query kompleks (seperti JOIN berulang) menjadi satu 'tabel' virtual, 
+--           sehingga mempermudah pengambilan data laporan (contoh: ketersediaan roti, detail pesanan).
 -- ==========================================
 CREATE VIEW view_available_breads AS
 SELECT b.id, b.name, b.price, b.stock, c.name AS category_name
@@ -218,7 +290,11 @@ FROM order_items oi
 JOIN breads b ON oi.bread_id = b.id;
 
 -- ==========================================
--- 5. TRIGGERS (Otomatisasi Stok & Subtotal)
+-- 5. TRIGGERS (Trigger)
+-- Diimplementasikan pada: Level database, menempel pada event tabel spesifik (INSERT, UPDATE, DELETE).
+-- Bagian: Aksi otomatis yang dipicu (trigger) oleh event DML.
+-- Kegunaan: Mengotomatisasi proses data terpusat dan menjaga konsistensi, seperti 
+--           validasi stok sebelum insert item pesanan, dan melindungi log dari perubahan/penghapusan.
 -- ==========================================
 DELIMITER //
 
@@ -273,7 +349,11 @@ END //
 DELIMITER ;
 
 -- ==========================================
--- 6. STORED PROCEDURES (Bulk Checkout)
+-- 6. STORED PROCEDURES (Stored Procedure)
+-- Diimplementasikan pada: Logika bisnis di level database untuk proses yang berulang.
+-- Bagian: Blok kode SQL yang disimpan dan dapat dipanggil kapan saja (menggunakan CALL).
+-- Kegunaan: Meningkatkan performa eksekusi karena dikompilasi di database, dan 
+--           meringkas kompleksitas kueri aplikasi saat melakukan proses checkout bulk atau restock.
 -- ==========================================
 DELIMITER //
 
@@ -309,9 +389,18 @@ DELIMITER ;
 -- ==========================================
 -- 7. DUMMY DATA
 -- ==========================================
-INSERT INTO users (name, email, password, role) VALUES 
-('Admin Utama', 'admin@roti.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin'),
-('Alex Pelanggan', 'alex@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'User');
+INSERT INTO users (name, email, password) VALUES 
+('Admin Utama', 'admin@roti.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+('Alex Pelanggan', 'alex@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+
+-- >>> ADDED: Data Spatie Roles dan Permissions
+INSERT INTO roles (name, guard_name, created_at, updated_at) VALUES 
+('Admin', 'web', NOW(), NOW()),
+('User', 'web', NOW(), NOW());
+
+INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES 
+(1, 'App\\Models\\User', 1),
+(2, 'App\\Models\\User', 2);
 
 INSERT INTO user_profiles (user_id, address, phone) VALUES 
 (1, 'Jl. Sistem Admin', '08000000000'),

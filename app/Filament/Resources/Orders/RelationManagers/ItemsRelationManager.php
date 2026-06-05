@@ -28,7 +28,7 @@ class ItemsRelationManager extends RelationManager
                     ->money('IDR'),
             ])
             ->headerActions([])
-            ->actions([])
-            ->bulkActions([]);
+            ->recordActions([])
+            ->toolbarActions([]);
     }
 }

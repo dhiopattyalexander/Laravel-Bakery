@@ -51,12 +51,27 @@ class AdminAccessLogResource extends Resource
                     ->tooltip(fn (AdminAccessLog $record): string => $record->user_agent),
             ])
             ->defaultSort('accessed_at', 'desc')
-            ->actions([
+            ->recordActions([
                 // No actions to ensure read-only behavior
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 // No bulk actions to ensure read-only behavior
             ]);
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return false;
     }
 
     public static function getEloquentQuery(): Builder

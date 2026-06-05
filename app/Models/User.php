@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable implements FilamentUser
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     protected $fillable = [
         'name',
@@ -35,9 +37,8 @@ class User extends Authenticatable implements FilamentUser
     // LOGIKA PEMISAH ADMIN DAN PELANGGAN
     public function canAccessPanel(Panel $panel): bool
     {
-        // GANTI email ini dengan email akun Admin-mu!
-        // Pelanggan dengan email lain akan ditolak masuk ke /admin
-        return $this->email === 'admin@roti.com'; 
+        // Menggunakan Spatie Permission untuk mengecek apakah user memiliki role Admin
+        return $this->hasRole('Admin'); 
     }
 
     public function profile(): HasOne

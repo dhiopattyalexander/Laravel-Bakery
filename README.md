@@ -1,58 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Toko Roti (Bakery App)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Selamat datang di repository proyek **Toko Roti**. Aplikasi ini merupakan platform berbasis web untuk manajemen penjualan dan pesanan toko roti, dibangun menggunakan kerangka kerja (framework) **Laravel**.
 
-## About Laravel
+## Isi Web & Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi Toko Roti dilengkapi dengan fitur-fitur yang dirancang untuk mempermudah operasional toko, baik bagi pelanggan maupun manajemen toko:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Katalog Produk (Breads)**: Menampilkan daftar roti yang tersedia beserta stok dan harganya. Roti dikelompokkan dalam berbagai kategori seperti Roti, Chiffon & Roll Cakes, Pastry, Cookies, dll.
+2. **Manajemen Pengguna (User Management)**: 
+   - Aplikasi mencatat data pelanggan secara lengkap, termasuk informasi profil (biodata) dan dukungan *multi-address* (satu pelanggan bisa memiliki lebih dari satu alamat pengiriman).
+   - Dilengkapi sistem otentikasi.
+3. **Role-Based Access Control (RBAC)**: Menggunakan paket [Spatie Permission](https://spatie.be/docs/laravel-permission), membagi hak akses ke dalam dua peran (roles) utama:
+   - `Admin`: Memiliki akses tak terbatas ke seluruh sistem, manajemen produk, manajemen stok, dan laporan penjualan.
+   - `User`: Hak akses terbatas untuk melihat produk, mengatur profil, dan melakukan pesanan.
+4. **Sistem Pesanan (Order)**: Mendukung keranjang belanja dan checkout dengan perhitungan subtotal dan stok secara transaksional. Checkout juga mendukung pengaturan metode pengiriman dan pembayaran (tercatat di tabel `order_checkout_meta`).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Struktur Database (`db_toko_roti.sql`)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Struktur dan logika aplikasi banyak didelegasikan ke level database untuk memastikan integritas data secara independen. Berikut rincian implementasi di dalam file SQL:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Tabel & Relasi
+Tabel-tabel bisnis utama (seperti `users`, `categories`, `breads`, `orders`, `order_items`) menggunakan mesin InnoDB yang memungkinkan adanya *Foreign Key*. Relasi antar tabel ini digunakan untuk menjaga *Referential Integrity*, sehingga penghapusan satu entitas (contoh: user dihapus) akan otomatis menghapus entitas anak (contoh: pesanan yang terkait).
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 2. Spatie Permission Tables
+Menggantikan Enum Role pada tabel pengguna, `db_toko_roti.sql` sekarang memuat struktur tabel RBAC dari Spatie Permission, yaitu: `permissions`, `roles`, `model_has_permissions`, `model_has_roles`, dan `role_has_permissions`.
 
-## Agentic Development
+### 3. Index
+Index dibuat pada kolom yang sering dijadikan kriteria pencarian dan *filtering*, seperti `name` pada tabel roti, `email` pada user, dan `status` pada tabel pesanan. Ini diterapkan pada level B-Tree di MySQL untuk mempercepat proses query *read* secara signifikan.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 4. View
+Tabel virtual (*View*) diimplementasikan untuk meringkas *query* yang rumit, menjadikannya sebuah *view* data satu pintu. 
+- `view_available_breads`: Menampilkan roti dengan stok lebih dari 0.
+- `view_user_orders` & `view_order_details`: Mempermudah akses data pelaporan pesanan pelanggan tanpa harus membuat JOIN manual terus-menerus.
 
-```bash
-composer require laravel/boost --dev
+### 5. Trigger
+Trigger ditanam di level database untuk event `INSERT`, `UPDATE`, maupun `DELETE` di tabel tertentu guna mengotomatisasi beberapa logika, antara lain:
+- Validasi stok secara kaku (jika stok kurang, maka insert `order_items` digagalkan).
+- Kalkulasi `subtotal` secara otomatis ketika memasukkan item belanjaan.
+- Mencegah perubahan maupun penghapusan pada log masuk/akses admin (`admin_access_logs`).
 
-php artisan boost:install
-```
+### 6. Stored Procedure
+Blok kode *Stored Procedure* disiapkan untuk menampung *query* beruntun demi menjaga *performance* dengan kompilasi di tingkat *database server*. Contoh prosedurnya meliputi: `sp_checkout_order_bulk` untuk membungkus pembuatan pesanan utama, serta prosedur restock barang dan perubahan status order.
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 7. User Privilege
+Untuk keamanan akses *database server* itu sendiri, terdapat pemisahan hak akses menggunakan User Database:
+- `alexander` & `admin_db`: Administrator database yang memiliki privilese secara penuh (`GRANT ALL PRIVILEGES`).
+- `kasir_db`: Akun yang memiliki akses minimal / terbatas (`SELECT, INSERT, UPDATE`) hanya pada tabel kasir spesifik (seperti `orders` dan `order_items`).
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Cara Penggunaan
 
-## Code of Conduct
+1. **Instalasi Dependensi**
+   Pastikan Anda sudah menjalankan perintah instalasi composer:
+   ```bash
+   composer install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Instalasi Spatie Permission (Opsional jika belum)**
+   Jika library manajemen role belum dipasang, instal melalui composer:
+   ```bash
+   composer require spatie/laravel-permission
+   php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+   php artisan migrate
+   ```
 
-## Security Vulnerabilities
+3. **Import Database**
+   Karena database dump telah disusun secara lengkap di file `db_toko_roti.sql`, silakan jalankan impor file tersebut langsung ke MySQL/MariaDB:
+   ```bash
+   mysql -u root -p db_toko_roti < db_toko_roti.sql
+   ```
+   *(Atau bisa juga diimpor menggunakan tools antarmuka seperti phpMyAdmin, DBeaver, dll)*
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Menjalankan Aplikasi**
+   Setelah `.env` dikonfigurasi dan diarahkan ke database `db_toko_roti`, jalankan server lokal Laravel:
+   ```bash
+   php artisan serve
+   ```
