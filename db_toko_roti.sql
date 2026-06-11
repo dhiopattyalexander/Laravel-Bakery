@@ -357,31 +357,90 @@ DELIMITER ;
 -- ==========================================
 DELIMITER //
 
--- Prosedur ini membuat induk pesanan (Header)
+-- 1. STORED PROCEDURE: INSERT
+-- Skenario Bisnis: Dipanggil saat pelanggan melakukan checkout keranjang belanjanya. 
+--                  Sistem akan membuat record induk pesanan baru dengan status 'Pending'.
+-- Contoh Pemanggilan: 
+-- CALL sp_checkout_order_bulk(1, 150000.00, @new_order_id);
+-- SELECT @new_order_id;
 CREATE PROCEDURE sp_checkout_order_bulk (
     IN p_user_id BIGINT UNSIGNED,
     IN p_total_amount DECIMAL(10,2),
     OUT p_order_id BIGINT UNSIGNED
 )
 BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
     INSERT INTO orders (user_id, total_amount, status) VALUES (p_user_id, p_total_amount, 'Pending');
     SET p_order_id = LAST_INSERT_ID();
+    COMMIT;
 END //
 
+-- 2. STORED PROCEDURE: UPDATE
+-- Skenario Bisnis: Dipanggil oleh admin gudang atau sistem secara otomatis saat batch produksi roti selesai,
+--                  untuk menambahkan jumlah stok baru ke stok roti yang sudah ada.
+-- Contoh Pemanggilan: 
+-- CALL sp_restock_bread(5, 50);
 CREATE PROCEDURE sp_restock_bread (
     IN p_bread_id BIGINT UNSIGNED,
     IN p_added_qty INT
 )
 BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
     UPDATE breads SET stock = stock + p_added_qty WHERE id = p_bread_id;
+    COMMIT;
 END //
 
+-- 3. STORED PROCEDURE: UPDATE (Status)
+-- Skenario Bisnis: Digunakan oleh sistem / kasir untuk memperbarui status pesanan, 
+--                  misalnya dari 'Pending' menjadi 'Processing' setelah pembayaran dikonfirmasi.
+-- Contoh Pemanggilan: 
+-- CALL sp_update_order_status(12, 'Processing');
 CREATE PROCEDURE sp_update_order_status (
     IN p_order_id BIGINT UNSIGNED,
     IN p_new_status ENUM('Pending', 'Processing', 'Completed', 'Cancelled')
 )
 BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
     UPDATE orders SET status = p_new_status WHERE id = p_order_id;
+    COMMIT;
+END //
+
+-- 4. STORED PROCEDURE: DELETE
+-- Skenario Bisnis: Maintenance database yang dipanggil untuk menghapus secara permanen 
+--                  pesanan yang berstatus 'Cancelled' (dibatalkan) guna membersihkan data yang tidak valid.
+-- Contoh Pemanggilan: 
+-- CALL sp_delete_cancelled_order(15);
+CREATE PROCEDURE sp_delete_cancelled_order (
+    IN p_order_id BIGINT UNSIGNED
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+    DELETE FROM orders WHERE id = p_order_id AND status = 'Cancelled';
+    COMMIT;
 END //
 
 DELIMITER ;
