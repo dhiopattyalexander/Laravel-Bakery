@@ -37,8 +37,8 @@ class User extends Authenticatable implements FilamentUser
     // LOGIKA PEMISAH ADMIN DAN PELANGGAN
     public function canAccessPanel(Panel $panel): bool
     {
-        // Menggunakan Spatie Permission untuk mengecek apakah user memiliki role Admin
-        return $this->hasRole('Admin'); 
+        // Menggunakan Spatie Permission untuk mengecek apakah user memiliki akses panel admin
+        return $this->hasAnyRole(['Admin', 'Gudang', 'Kasir']); 
     }
 
     public function profile(): HasOne

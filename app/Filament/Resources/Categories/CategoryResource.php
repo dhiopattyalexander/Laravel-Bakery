@@ -33,11 +33,29 @@ class CategoryResource extends Resource
         return CategoriesTable::configure($table);
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasPermissionTo('view_any_category') ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasPermissionTo('create_category') ?? false;
+    }
+
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return auth()->user()?->hasPermissionTo('update_category') ?? false;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return auth()->user()?->hasPermissionTo('delete_category') ?? false;
+    }
+
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

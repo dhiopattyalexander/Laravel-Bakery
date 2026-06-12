@@ -34,6 +34,26 @@ class BreadResource extends Resource
         return BreadsTable::configure($table);
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasPermissionTo('view_any_bread') ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasPermissionTo('create_bread') ?? false;
+    }
+
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return auth()->user()?->hasPermissionTo('update_bread') ?? false;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return auth()->user()?->hasPermissionTo('delete_bread') ?? false;
+    }
+
     public static function getRelations(): array
     {
         return [];
