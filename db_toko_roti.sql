@@ -298,6 +298,10 @@ JOIN breads b ON oi.bread_id = b.id;
 -- ==========================================
 DELIMITER //
 
+-- 1. TRIGGER: BEFORE INSERT (Validasi Data & Perhitungan Otomatis)
+-- Skenario: Dipicu sesaat sebelum sebuah item pesanan (order_items) baru disimpan ke database.
+-- Tujuan: Melakukan validasi ketersediaan stok roti. Jika stok kurang, transaksi dibatalkan (error).
+--         Selain itu, trigger ini otomatis menghitung subtotal (harga * jumlah) sebelum data di-insert.
 CREATE TRIGGER tr_before_order_item_insert
 BEFORE INSERT ON order_items
 FOR EACH ROW
@@ -315,7 +319,10 @@ BEGIN
     SET NEW.subtotal = bread_price * NEW.quantity;
 END //
 
--- >>> MODIFIED: Removed stock reduction from trigger. Stock is now managed by Laravel Order model event (booted).
+-- 2. TRIGGER: AFTER INSERT (Sinkronisasi Saldo/Total)
+-- Skenario: Dipicu setelah sebuah item pesanan (order_items) berhasil ditambahkan.
+-- Tujuan: Menambahkan subtotal item yang baru dibeli ke total_amount pada tabel induk (orders), 
+--         sehingga total belanja selalu sinkron secara otomatis.
 CREATE TRIGGER tr_after_order_item_insert
 AFTER INSERT ON order_items
 FOR EACH ROW
@@ -323,7 +330,10 @@ BEGIN
     UPDATE orders SET total_amount = total_amount + NEW.subtotal WHERE id = NEW.order_id;
 END //
 
--- >>> MODIFIED: Removed stock restoration from trigger. Stock is now managed by Laravel Order model event (booted).
+-- 3. TRIGGER: AFTER DELETE (Sinkronisasi Saldo/Total)
+-- Skenario: Dipicu setelah sebuah item pesanan (order_items) dihapus/dibatalkan.
+-- Tujuan: Mengurangi subtotal item yang dihapus dari total_amount pada tabel induk (orders),
+--         menjaga integritas data total belanja secara otomatis.
 CREATE TRIGGER tr_after_order_item_delete
 AFTER DELETE ON order_items
 FOR EACH ROW
@@ -331,7 +341,9 @@ BEGIN
     UPDATE orders SET total_amount = total_amount - OLD.subtotal WHERE id = OLD.order_id;
 END //
 
--- >>> ADDED: prevent updates and deletes on admin_access_logs
+-- 4. TRIGGER: BEFORE UPDATE (Audit Log / Perlindungan Histori)
+-- Skenario: Dipicu saat ada upaya untuk mengubah data pada tabel admin_access_logs.
+-- Tujuan: Memblokir perubahan (update) pada log akses. Log bersifat read-only untuk audit trail.
 CREATE TRIGGER tr_prevent_admin_log_update
 BEFORE UPDATE ON admin_access_logs
 FOR EACH ROW
@@ -339,6 +351,9 @@ BEGIN
     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Session log tidak dapat diubah.';
 END //
 
+-- 5. TRIGGER: BEFORE DELETE (Audit Log / Perlindungan Histori)
+-- Skenario: Dipicu saat ada upaya untuk menghapus data pada tabel admin_access_logs.
+-- Tujuan: Memblokir penghapusan (delete) pada log akses. Melindungi rekam jejak sistem dari pihak tidak bertanggung jawab.
 CREATE TRIGGER tr_prevent_admin_log_delete
 BEFORE DELETE ON admin_access_logs
 FOR EACH ROW
