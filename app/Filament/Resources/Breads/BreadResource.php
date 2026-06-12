@@ -18,7 +18,8 @@ class BreadResource extends Resource
 {
     protected static ?string $model = Bread::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|\UnitEnum|null $navigationGroup = 'Manajemen Produk';
 
     protected static ?string $recordTitleAttribute = 'name';
 

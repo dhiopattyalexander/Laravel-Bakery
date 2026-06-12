@@ -33,6 +33,7 @@ class RoleResource extends Resource
     protected static ?string $pluralModelLabel = 'Roles';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
+    protected static string|\UnitEnum|null $navigationGroup = 'Manajemen Pengguna';
 
     public static function form(Schema $schema): Schema
     {

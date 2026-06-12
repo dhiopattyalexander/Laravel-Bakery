@@ -26,6 +26,8 @@ class PermissionResource extends Resource
 
     protected static ?string $slug = 'permissions';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Manajemen Pengguna';
+
     protected static ?string $navigationLabel = 'Permissions';
 
     protected static ?string $modelLabel = 'Permission';

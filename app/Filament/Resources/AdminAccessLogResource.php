@@ -16,6 +16,8 @@ class AdminAccessLogResource extends Resource
 
     protected static ?string $slug = 'admin-access-logs';
 
+    protected static string|\UnitEnum|null $navigationGroup = 'Sistem';
+
     protected static ?string $navigationLabel = 'Log Akses Admin';
 
     protected static ?string $modelLabel = 'Log Akses';

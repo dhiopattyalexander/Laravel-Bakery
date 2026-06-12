@@ -470,11 +470,66 @@ INSERT INTO users (name, email, password) VALUES
 -- >>> ADDED: Data Spatie Roles dan Permissions
 INSERT INTO roles (name, guard_name, created_at, updated_at) VALUES 
 ('Admin', 'web', NOW(), NOW()),
+('Kasir', 'web', NOW(), NOW()),
+('Gudang', 'web', NOW(), NOW()),
+('Manager', 'web', NOW(), NOW()),
 ('User', 'web', NOW(), NOW());
 
 INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES 
 (1, 'App\\Models\\User', 1),
-(2, 'App\\Models\\User', 2);
+(5, 'App\\Models\\User', 2);
+
+-- Menambahkan dummy data untuk permissions (Fitur Filament)
+INSERT INTO permissions (name, guard_name, created_at, updated_at) VALUES 
+('view_dashboard', 'web', NOW(), NOW()),
+('view_any_bread', 'web', NOW(), NOW()),
+('view_bread', 'web', NOW(), NOW()),
+('create_bread', 'web', NOW(), NOW()),
+('update_bread', 'web', NOW(), NOW()),
+('delete_bread', 'web', NOW(), NOW()),
+('view_any_category', 'web', NOW(), NOW()),
+('view_category', 'web', NOW(), NOW()),
+('create_category', 'web', NOW(), NOW()),
+('update_category', 'web', NOW(), NOW()),
+('delete_category', 'web', NOW(), NOW()),
+('view_any_order', 'web', NOW(), NOW()),
+('view_order', 'web', NOW(), NOW()),
+('create_order', 'web', NOW(), NOW()),
+('update_order', 'web', NOW(), NOW()),
+('delete_order', 'web', NOW(), NOW()),
+('view_any_user', 'web', NOW(), NOW()),
+('view_user', 'web', NOW(), NOW()),
+('create_user', 'web', NOW(), NOW()),
+('update_user', 'web', NOW(), NOW()),
+('delete_user', 'web', NOW(), NOW()),
+('view_any_role', 'web', NOW(), NOW()),
+('view_role', 'web', NOW(), NOW()),
+('create_role', 'web', NOW(), NOW()),
+('update_role', 'web', NOW(), NOW()),
+('delete_role', 'web', NOW(), NOW()),
+('view_any_permission', 'web', NOW(), NOW()),
+('view_permission', 'web', NOW(), NOW()),
+('create_permission', 'web', NOW(), NOW()),
+('update_permission', 'web', NOW(), NOW()),
+('delete_permission', 'web', NOW(), NOW()),
+('view_any_log', 'web', NOW(), NOW()),
+('view_log', 'web', NOW(), NOW());
+
+-- Berikan akses ke role Admin (asumsikan role_id 1 punya semua permissions dari id 1 s/d 33)
+INSERT INTO role_has_permissions (permission_id, role_id)
+SELECT id, 1 FROM permissions;
+
+-- Berikan beberapa akses ke Kasir (role_id 2)
+INSERT INTO role_has_permissions (permission_id, role_id) VALUES
+(1, 2), -- view_dashboard
+(2, 2), (3, 2), -- view bread
+(12, 2), (13, 2), (14, 2), (15, 2); -- order management
+
+-- Berikan beberapa akses ke Gudang (role_id 3)
+INSERT INTO role_has_permissions (permission_id, role_id) VALUES
+(1, 3), -- view_dashboard
+(2, 3), (3, 3), (4, 3), (5, 3), (6, 3), -- bread management
+(7, 3), (8, 3), (9, 3), (10, 3), (11, 3); -- category management
 
 INSERT INTO user_profiles (user_id, address, phone) VALUES 
 (1, 'Jl. Sistem Admin', '08000000000'),
