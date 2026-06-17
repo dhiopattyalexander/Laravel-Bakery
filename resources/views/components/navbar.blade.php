@@ -4,9 +4,7 @@
 
             <!-- Logo -->
             <a href="{{ url('/') }}" class="flex items-center gap-2.5 shrink-0 group">
-                <div class="flex h-9 w-9 items-center justify-center rounded-xl text-lg transition group-hover:scale-105" style="background: linear-gradient(135deg, #b45309, #92400e);">
-                    🍞
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-9 w-auto object-contain transition group-hover:scale-105">
                 <div class="hidden sm:block">
                     <span class="font-playfair block text-base font-bold leading-tight text-amber-900" style="font-family: 'Playfair Display', serif;">L'Artisan</span>
                     <span class="block text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-600">Bakery</span>
@@ -29,7 +27,10 @@
                         </div>
                         <div class="p-2">
                             <a href="{{ route('orders.index') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-amber-50 hover:text-amber-800">
-                                <span class="text-base">🧺</span> Semua Produk
+                                <svg class="h-4 w-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                </svg>
+                                Semua Produk
                             </a>
                             @if(isset($navCategories) && $navCategories->isNotEmpty())
                                 <div class="my-1.5 border-t border-gray-100"></div>
@@ -143,7 +144,12 @@
                 </button>
 
                 <div id="mobile-cat-list" class="hidden pl-10 space-y-1">
-                    <a href="{{ route('orders.index') }}" class="block rounded-xl px-3 py-2 text-sm text-gray-600 transition hover:bg-amber-50 hover:text-amber-800">🧺 Semua Produk</a>
+                    <a href="{{ route('orders.index') }}" class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-gray-600 transition hover:bg-amber-50 hover:text-amber-800">
+                        <svg class="h-4 w-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                        Semua Produk
+                    </a>
                     @if(isset($navCategories))
                         @foreach($navCategories as $cat)
                             <a href="{{ route('orders.index') }}" class="block rounded-xl px-3 py-2 text-sm text-gray-600 transition hover:bg-amber-50 hover:text-amber-800">

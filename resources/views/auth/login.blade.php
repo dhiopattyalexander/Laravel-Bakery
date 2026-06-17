@@ -21,7 +21,7 @@
         <div class="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 text-white" style="background: linear-gradient(135deg, #451a03 0%, #78350f 50%, #b45309 100%);">
             {{-- Logo --}}
             <a href="{{ url('/') }}" class="flex items-center gap-3">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 text-lg">🍞</div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain">
                 <div>
                     <p class="font-playfair text-lg font-bold">L'Artisan Bakery</p>
                     <p class="text-xs text-amber-300">Roti Segar Setiap Hari</p>
@@ -31,7 +31,7 @@
             {{-- Content --}}
             <div>
                 <h1 class="font-playfair text-4xl font-bold leading-tight">
-                    Selamat Datang<br>Kembali! 👋
+                    Selamat Datang<br>Kembali!
                 </h1>
                 <p class="mt-4 text-base leading-7 text-amber-100">
                     Masuk ke akun kamu untuk melihat riwayat pesanan, mengatur alamat, dan memesan roti favoritmu.
@@ -58,7 +58,7 @@
             {{-- Mobile Logo --}}
             <div class="mb-8 flex justify-center lg:hidden">
                 <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                    <div class="flex h-10 w-10 items-center justify-center rounded-xl text-lg" style="background: linear-gradient(135deg, #d97706, #b45309);">🍞</div>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain">
                     <span class="font-playfair text-xl font-bold text-amber-900">L'Artisan Bakery</span>
                 </a>
             </div>

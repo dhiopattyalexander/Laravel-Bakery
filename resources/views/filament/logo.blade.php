@@ -1,12 +1,10 @@
-<div class="flex items-center gap-2">
-    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 text-base shadow-sm backdrop-blur-sm">
-        🍞
-    </div>
+<div style="display: flex; align-items: center; gap: 10px;">
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 32px; width: auto; border-radius: 6px; display: block; object-fit: contain;">
     <div>
-        <div class="text-lg font-bold leading-none tracking-tight text-white" style="font-family: 'Playfair Display', serif;">
+        <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.125rem; font-weight: 700; color: #ffffff; line-height: 1.2;">
             L'Artisan Bakery
         </div>
-        <div class="mt-0.5 text-[0.65rem] font-semibold tracking-wider text-amber-300 uppercase">
+        <div style="font-size: 0.65rem; font-weight: 600; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">
             Admin Panel
         </div>
     </div>

@@ -22,13 +22,13 @@
 
         <div class="relative max-w-3xl">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-200 backdrop-blur-sm mb-6">
-                🏪 Kenali Kami Lebih Dekat
+                Kenali Kami Lebih Dekat
             </span>
             <h1 class="font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
                 Dedikasi Rasa <br>Dari <span class="text-amber-300">Dapur Klasik Kami</span>
             </h1>
             <p class="mt-6 text-base leading-7 text-amber-100 sm:text-lg max-w-xl">
-                L'Artisan Bakery hadir untuk menyajikan kehangatan roti yang dipanggang segar setiap pagi dengan komitmen rasa autentik dan bahan-bahan alami premium.
+                L'Artisan Bakery hadir untuk menyajikan kehangatan roti yang dipanggang segar setiap pagi dengan komitmen rasa autentik and bahan-bahan alami premium.
             </p>
         </div>
     </section>
@@ -37,7 +37,7 @@
     <div class="grid gap-10 lg:grid-cols-2 items-center mb-16">
         <div>
             <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide" style="background: #fef3e2; color: #b45309;">
-                📜 Sejarah & Filosofi
+                Sejarah & Filosofi
             </span>
             <h2 class="mt-4 font-playfair text-3xl font-bold text-gray-900 sm:text-4xl" style="font-family: 'Playfair Display', serif;">
                 Awal Mula Kehangatan Dapur L'Artisan
@@ -58,52 +58,31 @@
     </div>
 
     {{-- Vision & Mission --}}
-    <section class="grid gap-6 sm:grid-cols-2 mb-16">
+    <section class="grid gap-6 sm:grid-cols-2 mb-10">
         <div class="group rounded-3xl border border-amber-100 bg-white p-6 sm:p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl mb-5" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">👁️</div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl mb-5" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">
+                <svg class="h-6 w-6 text-amber-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+            </div>
             <h3 class="font-playfair text-xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">Visi Kami</h3>
             <p class="mt-3 text-sm leading-6 text-gray-500">
                 Menjadi toko roti artisan pilihan utama keluarga Indonesia yang dikenal karena kualitas bahan premium, keaslian rasa, dan kesegaran produk yang dipanggang segar setiap hari.
             </p>
         </div>
         <div class="group rounded-3xl border border-amber-100 bg-white p-6 sm:p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <div class="flex h-12 w-12 items-center justify-center rounded-2xl text-2xl mb-5" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">🎯</div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl mb-5" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">
+                <svg class="h-6 w-6 text-amber-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="5" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
             <h3 class="font-playfair text-xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">Misi Kami</h3>
             <p class="mt-3 text-sm leading-6 text-gray-500">
                 Memadukan resep tradisional dengan teknologi pemanggangan modern untuk menyajikan roti sehat tanpa bahan pengawet, sekaligus memberikan pelayanan terbaik dan kemudahan pemesanan bagi para pelanggan setia kami.
             </p>
-        </div>
-    </section>
-
-    {{-- Dapur & Nilai Kami --}}
-    <section class="overflow-hidden rounded-3xl p-6 sm:p-10 mb-10 text-center" style="background: linear-gradient(135deg, #fef9f0, #fef3e2);">
-        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide mb-4" style="background: #fde8c8; color: #b45309;">
-            🍪 Nilai Kami
-        </span>
-        <h2 class="font-playfair text-2xl font-bold text-gray-900 sm:text-3xl mb-8" style="font-family: 'Playfair Display', serif;">
-            Komitmen Kualitas Terbaik
-        </h2>
-        <div class="grid gap-6 sm:grid-cols-4">
-            <div class="bg-white p-5 rounded-2xl shadow-sm">
-                <p class="text-3xl mb-2">🌾</p>
-                <h4 class="font-bold text-sm text-gray-900">Bahan Alami</h4>
-                <p class="mt-1 text-xs text-gray-500">Tanpa zat aditif buatan</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl shadow-sm">
-                <p class="text-3xl mb-2">🔥</p>
-                <h4 class="font-bold text-sm text-gray-900">Freshly Baked</h4>
-                <p class="mt-1 text-xs text-gray-500">Dipanggang setiap pagi</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl shadow-sm">
-                <p class="text-3xl mb-2">🧑‍🍳</p>
-                <h4 class="font-bold text-sm text-gray-900">Chef Profesional</h4>
-                <p class="mt-1 text-xs text-gray-500">Keahlian artisan tinggi</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl shadow-sm">
-                <p class="text-3xl mb-2">❤️</p>
-                <h4 class="font-bold text-sm text-gray-900">Penuh Cinta</h4>
-                <p class="mt-1 text-xs text-gray-500">Dibuat tulus untuk Anda</p>
-            </div>
         </div>
     </section>
 @endsection

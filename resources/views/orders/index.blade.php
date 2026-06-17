@@ -22,7 +22,8 @@
 
         <div class="relative max-w-2xl">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-200 backdrop-blur-sm mb-4">
-                🧺 Katalog Lengkap
+                <svg class="h-3.5 w-3.5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                Katalog Lengkap
             </span>
             <h1 class="font-playfair text-3xl font-bold text-white sm:text-4xl lg:text-5xl" style="font-family: 'Playfair Display', serif;">
                 Temukan Roti <span class="text-amber-300">Favoritmu</span>

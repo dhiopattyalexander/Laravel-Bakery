@@ -14,7 +14,12 @@
                 class="w-full rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition {{ $selectedCategory === null ? 'border-amber-700 text-white shadow-sm' : 'border-gray-200 bg-white text-gray-700 hover:border-amber-200 hover:bg-amber-50' }}"
                 @if($selectedCategory === null) style="background: linear-gradient(135deg, #d97706, #b45309);" @endif
             >
-                🧺 Semua Kategori
+                <span class="flex items-center gap-2">
+                    <svg class="h-4 w-4 shrink-0 {{ $selectedCategory === null ? 'text-white' : 'text-amber-600' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/>
+                    </svg>
+                    Semua Kategori
+                </span>
             </button>
 
             @foreach($categories as $category)
@@ -150,7 +155,10 @@
                                         style="background: linear-gradient(135deg, #d97706, #b45309);"
                                     >
                                         <span wire:loading.remove wire:target="tambahKeKeranjang" class="flex items-center gap-1.5">
-                                            🛒 <span>Keranjang</span>
+                                            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                            </svg>
+                                            <span>Keranjang</span>
                                         </span>
                                         <span wire:loading wire:target="tambahKeKeranjang">
                                             <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
@@ -170,7 +178,11 @@
                 </article>
             @empty
                 <div class="col-span-full rounded-2xl border border-dashed border-gray-200 bg-gray-50 px-6 py-12 text-center">
-                    <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">🔍</div>
+                    <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-50 text-amber-700">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
                     <p class="text-base font-semibold text-gray-800">Roti tidak ditemukan.</p>
                     <p class="mt-2 text-sm text-gray-500">Coba kata kunci atau kategori yang berbeda.</p>
                 </div>

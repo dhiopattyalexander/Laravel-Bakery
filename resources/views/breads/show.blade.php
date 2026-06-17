@@ -73,7 +73,11 @@
             {{-- Info Box --}}
             <div class="rounded-2xl border border-amber-200 p-4" style="background: linear-gradient(135deg, #fef9f0, #fef3e2);">
                 <div class="flex items-start gap-3">
-                    <div class="text-2xl">🍞</div>
+                    <div class="text-amber-700 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-200/50">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
                     <div>
                         <p class="text-sm font-bold text-amber-900">Roti Segar Setiap Hari</p>
                         <p class="mt-1 text-xs text-amber-700">Dipanggang dari bahan pilihan dengan standar kualitas tertinggi. Gunakan kontrol di bawah untuk menambahkan ke keranjang.</p>

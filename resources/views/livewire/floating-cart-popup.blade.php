@@ -8,7 +8,9 @@
             style="background: linear-gradient(135deg, #d97706, #92400e);"
         >
             <span class="relative flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-base">
-                🛒
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
                 @if($jumlahItem > 0)
                     <span class="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[9px] font-black text-white badge-pop">
                         {{ $jumlahItem }}
@@ -57,7 +59,7 @@
                     <div class="flex items-start gap-3">
                         <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-amber-100">
                             <img
-                                src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null) }}"
+                                src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null, $item['nama'] ?? null) }}"
                                 alt="{{ $item['nama'] }}"
                                 class="h-full w-full object-cover"
                             >
@@ -98,7 +100,11 @@
                 </div>
             @empty
                 <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 bg-gray-50 py-10 text-center">
-                    <div class="mb-3 text-4xl">🧺</div>
+                    <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-700">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                    </div>
                     <h3 class="text-sm font-bold text-gray-900">Keranjang kosong</h3>
                     <p class="mt-1 text-xs text-gray-500">Pilih roti dari katalog untuk mulai berbelanja.</p>
                 </div>

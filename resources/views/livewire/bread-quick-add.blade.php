@@ -40,7 +40,10 @@
                 style="background: linear-gradient(135deg, #d97706, #b45309);"
             >
                 <span wire:loading.remove wire:target="tambahKeKeranjang" class="flex items-center gap-2">
-                    🛒 Tambah ke Keranjang
+                    <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    Tambah ke Keranjang
                 </span>
                 <span wire:loading wire:target="tambahKeKeranjang">
                     <svg class="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none">
@@ -64,7 +67,11 @@
         @endif
     @else
         <div class="overflow-hidden rounded-2xl border border-dashed border-red-200 bg-red-50 p-5 text-center">
-            <p class="text-2xl">😔</p>
+            <div class="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-700">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
             <p class="mt-2 font-bold text-red-700">Stok Habis</p>
             <p class="mt-1 text-sm text-gray-500">Roti ini sedang tidak tersedia. Coba kembali lagi nanti.</p>
         </div>

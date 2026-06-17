@@ -63,12 +63,11 @@
                 {{-- QR Code --}}
                 <div class="flex justify-center">
                     @if($hasQrisImage)
-                        <div class="overflow-hidden rounded-2xl border-4 border-amber-100 shadow-inner" style="height: 280px; width: 280px;">
+                        <div class="overflow-hidden rounded-2xl border-4 border-amber-100 shadow-inner p-2 bg-white" style="height: 280px; width: 280px;">
                             <img
                                 src="{{ asset('images/qris-full.png') }}"
                                 alt="QRIS pembayaran"
-                                class="max-w-none"
-                                style="width: 768px; height: 1118px; transform: translate(-108px, -300px);"
+                                class="h-full w-full object-contain"
                             >
                         </div>
                     @else

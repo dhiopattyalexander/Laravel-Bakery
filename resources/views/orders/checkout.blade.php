@@ -64,7 +64,7 @@
                             {{-- Product Image --}}
                             <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-amber-50">
                                 <img
-                                    src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null) }}"
+                                    src="{{ \App\Models\Bread::getImageUrl($item['gambar'] ?? null, $item['nama'] ?? null) }}"
                                     alt="{{ $item['nama'] }}"
                                     class="h-full w-full object-cover"
                                 >
@@ -133,7 +133,7 @@
                                    {{ ! $pickupAvailable ? 'disabled' : '' }}
                                    class="h-4 w-4 text-amber-700 focus:ring-amber-500">
                             <div>
-                                <span class="block text-sm font-semibold text-gray-800">🏪 Ambil di Toko</span>
+                                <span class="block text-sm font-semibold text-gray-800">Ambil di Toko</span>
                                 <span class="block text-xs text-gray-500">Pickup langsung di lokasi kami</span>
                             </div>
                         </label>
@@ -142,7 +142,7 @@
                                    {{ old('delivery_method', 'instant') === 'instant' ? 'checked' : '' }}
                                    class="h-4 w-4 text-amber-700 focus:ring-amber-500">
                             <div>
-                                <span class="block text-sm font-semibold text-gray-800">🚀 Pengiriman Instan</span>
+                                <span class="block text-sm font-semibold text-gray-800">Pengiriman Instan</span>
                                 <span class="block text-xs text-gray-500">Dikirim via ojek online</span>
                             </div>
                         </label>
@@ -178,7 +178,7 @@
                     <label class="flex items-center gap-3 rounded-2xl border-2 border-amber-400 bg-amber-50 p-3">
                         <input type="radio" name="payment_method" value="qris" checked class="h-4 w-4 text-amber-700">
                         <div>
-                            <span class="block text-sm font-semibold text-gray-800">📱 QRIS</span>
+                            <span class="block text-sm font-semibold text-gray-800">QRIS</span>
                             <span class="block text-xs text-gray-500">Scan QR untuk bayar</span>
                         </div>
                     </label>

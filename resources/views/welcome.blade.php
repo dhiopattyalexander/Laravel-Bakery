@@ -18,7 +18,8 @@
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-200 backdrop-blur-sm">
-                        🍞 Roti Segar Setiap Hari
+                        <svg class="h-3.5 w-3.5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        Roti Segar Setiap Hari
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
                         Kehangatan Roti Klasik<br>yang <span class="text-amber-300">Memikat Selera</span>
@@ -46,7 +47,8 @@
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-amber-500/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-amber-300 backdrop-blur-sm">
-                        🎂 Rayakan Momen Spesial
+                        <svg class="h-3.5 w-3.5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        Rayakan Momen Spesial
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
                         Cakes Istimewa<br>untuk <span class="text-amber-400">Hari Bahagia</span>
@@ -70,7 +72,8 @@
             <div class="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-16 w-full">
                 <div class="max-w-xl">
                     <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-green-200 backdrop-blur-sm">
-                        🥐 Artisan Pastry
+                        <svg class="h-3.5 w-3.5 text-green-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        Artisan Pastry
                     </span>
                     <h1 class="mt-5 font-playfair text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl" style="font-family: 'Playfair Display', serif;">
                         Flaky & Crispy<br><span class="text-green-300">Artisan Pastry</span>
@@ -112,21 +115,34 @@
 <section class="mt-14">
     <div class="grid gap-4 sm:grid-cols-3">
         <div class="group flex items-start gap-4 rounded-2xl border border-amber-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">🌾</div>
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-amber-700" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+            </div>
             <div>
                 <h3 class="font-semibold text-gray-900">Bahan Premium</h3>
                 <p class="mt-1 text-sm text-gray-500 leading-6">Tepung pilihan dan bahan segar untuk rasa yang konsisten setiap hari.</p>
             </div>
         </div>
         <div class="group flex items-start gap-4 rounded-2xl border border-amber-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">⚡</div>
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-amber-700" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            </div>
             <div>
                 <h3 class="font-semibold text-gray-900">Pesan Cepat</h3>
                 <p class="mt-1 text-sm text-gray-500 leading-6">Tambahkan ke keranjang, bayar QRIS, dan pesananmu langsung diproses.</p>
             </div>
         </div>
         <div class="group flex items-start gap-4 rounded-2xl border border-amber-100 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">🏪</div>
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-amber-700" style="background: linear-gradient(135deg, #fef3e2, #fde8c8);">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </div>
             <div>
                 <h3 class="font-semibold text-gray-900">Pickup & Antar</h3>
                 <p class="mt-1 text-sm text-gray-500 leading-6">Ambil langsung di toko atau pilih pengiriman instan lewat ojek online.</p>
@@ -142,7 +158,7 @@
     <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
             <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.2em]" style="background: #fef3e2; color: #b45309;">
-                🏆 Terlaris
+                Terlaris
             </span>
             <h2 class="mt-3 font-playfair text-3xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">
                 Pilihan Paling Populer
@@ -206,7 +222,7 @@
     <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
             <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.2em]" style="background: #ecfdf5; color: #059669;">
-                ✨ Baru
+                Baru
             </span>
             <h2 class="mt-3 font-playfair text-3xl font-bold text-gray-900" style="font-family: 'Playfair Display', serif;">
                 Roti Terbaru di Etalase
@@ -254,7 +270,7 @@
         <div class="grid lg:grid-cols-2">
             <div class="p-8 sm:p-12 lg:p-14 flex flex-col justify-center">
                 <span class="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] mb-5" style="background: #fde8c8; color: #b45309;">
-                    🏪 Tentang Kami
+                    Tentang Kami
                 </span>
                 <h2 class="font-playfair text-3xl font-bold text-gray-900 sm:text-4xl" style="font-family: 'Playfair Display', serif;">
                     Dari Dapur Kami <br>ke Meja Makanmu

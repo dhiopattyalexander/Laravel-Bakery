@@ -103,7 +103,7 @@
                 <!-- Brand -->
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-white text-lg font-bold">🍞</div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain">
                         <div>
                             <p class="font-playfair text-lg font-bold text-white">L'Artisan Bakery</p>
                             <p class="text-xs text-amber-300">Roti Segar Setiap Hari</p>
@@ -173,7 +173,7 @@
 
             <div class="mt-10 border-t border-white/10 pt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p class="text-xs text-amber-300/60">&copy; {{ date('Y') }} L'Artisan Bakery. Semua hak dilindungi.</p>
-                <p class="text-xs text-amber-300/60">Dibuat dengan ❤️ untuk pecinta roti</p>
+                <p class="text-xs text-amber-300/60">Dibuat sepenuh hati untuk pecinta roti</p>
             </div>
         </div>
     </footer>

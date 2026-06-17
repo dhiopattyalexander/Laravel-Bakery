@@ -53,7 +53,11 @@
                 <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                         <div class="flex items-center gap-2.5 mb-3">
-                            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20 text-lg">🍞</div>
+                            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20 text-white">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                </svg>
+                            </div>
                             <div>
                                 <p class="font-playfair text-base font-bold" style="font-family: 'Playfair Display', serif;">L'Artisan Bakery</p>
                                 <p class="text-xs text-amber-300">Invoice Resmi</p>
@@ -109,12 +113,12 @@
                 {{-- Delivery Details --}}
                 @if(! empty($checkoutMeta))
                     <div class="rounded-2xl border border-amber-100 p-5" style="background: linear-gradient(135deg, #fef9f0, #fef3e2);">
-                        <h2 class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-800">📦 Detail Pengiriman</h2>
+                        <h2 class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-amber-800">Detail Pengiriman</h2>
                         <div class="grid gap-4 text-sm sm:grid-cols-2">
                             <div>
                                 <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wide">Metode</span>
                                 <span class="mt-1 block font-semibold text-gray-800">
-                                    {{ ($checkoutMeta['delivery_method'] ?? '') === 'pickup' ? '🏪 Ambil di Toko' : '🚀 Pengiriman Instan' }}
+                                    {{ ($checkoutMeta['delivery_method'] ?? '') === 'pickup' ? 'Ambil di Toko' : 'Pengiriman Instan' }}
                                 </span>
                             </div>
                             <div>
@@ -190,7 +194,7 @@
                                 <a href="{{ route('checkout.payment', $order) }}"
                                    class="inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold text-white transition hover:opacity-90"
                                    style="background: linear-gradient(135deg, #d97706, #b45309);">
-                                    📱 Lanjut Bayar
+                                    Lanjut Bayar
                                 </a>
                             @endif
                             <a href="{{ route('account.orders') }}"
