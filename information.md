@@ -16,30 +16,7 @@ Seluruh logika bisnis kritis (seperti validasi stok, penghitungan subtotal belan
 
 ## 2. Entity Relationship Diagram (ERD) dan Penjelasan Relasi
 
-### Diagram ERD (Mermaid)
-
-```mermaid
-erDiagram
-    USERS ||--|| USER_PROFILES : "memiliki profil (1:1)"
-    USERS ||--o{ USER_ADDRESSES : "mengelola alamat (1:N)"
-    USERS ||--o{ ORDERS : "melakukan pesanan (1:N)"
-    USERS ||--o{ ADMIN_ACCESS_LOGS : "mencatat log masuk (1:N)"
-    
-    CATEGORIES ||--o{ BREADS : "mengelompokkan (1:N)"
-    
-    ORDERS ||--o{ ORDER_ITEMS : "terdiri dari (1:N)"
-    ORDERS ||--|| ORDER_CHECKOUT_META : "memiliki metadata checkout (1:1)"
-    
-    BREADS ||--o{ ORDER_ITEMS : "dipesan di (1:N)"
-    
-    ROLES ||--o{ ROLE_HAS_PERMISSIONS : "memiliki (1:N)"
-    PERMISSIONS ||--o{ ROLE_HAS_PERMISSIONS : "dimiliki oleh (1:N)"
-    
-    USERS ||--o{ MODEL_HAS_ROLES : "memiliki peran (Polimorfik 1:N)"
-    ROLES ||--o{ MODEL_HAS_ROLES : "diberikan kepada (1:N)"
-    
-    USERS ||--o{ MODEL_HAS_PERMISSIONS : "memiliki izin langsung (Polimorfik 1:N)"
-    PERMISSIONS ||--o{ MODEL_HAS_PERMISSIONS : "diberikan langsung ke (1:N)"
+#
 ```
 
 ### Penjelasan Entitas dan Relasi Utama
